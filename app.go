@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/RedColdHearted/go-demo-exam/controllers"
 	"github.com/RedColdHearted/go-demo-exam/models"
 	"github.com/gin-gonic/gin"
@@ -8,6 +10,11 @@ import (
 
 func main() {
 	router := gin.Default()
+
+	router.LoadHTMLGlob("templates/*")
+	router.GET("/", func(c *gin.Context){
+		c.HTML(http.StatusOK, "index.html", gin.H{})
+	})
 
 	v1 := router.Group("/api/v1")
 	v1.GET("reservation", controllers.GetReservations)
