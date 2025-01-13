@@ -5,16 +5,14 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
 
-func ConnectDatabase(){
-	database, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
-	if err != nil {
-		panic("Failed attempt of connection to database")
-	}
-	err = database.AutoMigrate(&Reservation{})
-	if err != nil {
-		return
-	}
-	DB = database
+func ConnectDatabase() (*gorm.DB, error) {
+    database, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
+    if err != nil {
+        return nil, err
+    }
+    if err := database.AutoMigrate(&Reservation{}); err != nil {
+        return nil, err
+    }
+    return database, nil
 }
