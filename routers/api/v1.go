@@ -5,9 +5,8 @@ import (
 	"github.com/RedColdHearted/go-demo-exam/controllers"
 )
 
-
 func SetupV1Api(application *app.Application) {
-	v1 := application.Router.Group("/api/v1")
+	v1 := application.R.Group("/api/v1")
 	rc := controllers.MakeReservationController(application)
 
 	v1.GET("reservation", rc.GetReservations)

@@ -98,6 +98,6 @@ func (rc *ReservationController) DeleteReservation(c *gin.Context) {
 	rc.App.DB.Delete(&reservation)
 	c.JSON(http.StatusOK, gin.H{
 		"message": "reservation deleted",
-		"object":  reservation,
+		"object":  reservation.BaseReservation,
 	})
 }

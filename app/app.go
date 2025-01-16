@@ -1,24 +1,24 @@
 package app
 
 import (
-    "gorm.io/gorm"
-    "github.com/gin-gonic/gin"
+	"github.com/RedColdHearted/go-demo-exam/routers"
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type Application struct {
-    DB     *gorm.DB
-    Router *gin.Engine
+	DB *gorm.DB
+	R  *gin.Engine
 }
 
 func NewApplication(db *gorm.DB) *Application {
-    router := gin.Default()
-    return &Application{
-        DB:     db,
-        Router: router,
-    }
+	router := routers.CommonRouter()
+	return &Application{
+		DB: db,
+		R:  router,
+	}
 }
 
-
-func(application *Application) Run () (error){
-	return application.Router.Run()
+func (application *Application) Run() error {
+	return application.R.Run()
 }
